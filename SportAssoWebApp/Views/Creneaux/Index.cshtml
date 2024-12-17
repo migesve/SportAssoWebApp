@@ -1,76 +1,66 @@
 ﻿@model IEnumerable<SportAssoWebApp.Models.Creneau>
-
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Calendrier des Créneaux";
+    var currentWeekStart = ViewBag.CurrentWeekStart as DateTime? ?? DateTime.Now.StartOfWeek(DayOfWeek.Monday);
+    var daysOfWeek = Enumerable.Range(0, 7)
+                               .Select(offset => currentWeekStart.AddDays(offset))
+                               .ToList();
 }
 
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+<style>
+    .day-column {
+        border: 1px solid #ddd;
+        min-height: 200px;
+        background-color: #f9f9f9;
+    }
+    .day-title {
+        background-color: #343a40;
+        color: white;
+        text-align: center;
+        padding: 10px;
+        font-weight: bold;
+    }
+    .creneau {
+        padding: 10px;
+        border-bottom: 1px solid #ccc;
+    }
+    .navigation {
+        margin-bottom: 20px;
+    }
+</style>
 
 <div class="container mt-4">
-    <h1 class="mb-4">Créneaux</h1>
+    <h1 class="mb-4">Calendrier des Créneaux</h1>
 
-    <p>
-        <a asp-action="Create" class="btn btn-primary">Ajouter un créneau</a>
-    </p>
-    <table class="table table-striped table-hover table-bordered">
-        <thead class="thead-dark">
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Lieu)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Horaire)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.PlacesMax)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.PlacesRestantes)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Price)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DocumentsRequired)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Section)
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Lieu)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Horaire)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.PlacesMax)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.PlacesRestantes)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Price)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DocumentsRequired)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Section.SectionId)
-                    </td>
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@item.CreneauId" class="btn btn-secondary btn-sm">Edit</a>
-                        <a asp-action="Details" asp-route-id="@item.CreneauId" class="btn btn-info btn-sm">Details</a>
-                        <a asp-action="Delete" asp-route-id="@item.CreneauId" class="btn btn-danger btn-sm">Delete</a>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+    <!-- Navigation des semaines -->
+    <div class="navigation d-flex justify-content-between">
+        <a asp-action="Index" asp-route-weekStart="@currentWeekStart.AddDays(-7)" class="btn btn-secondary">← Semaine Précédente</a>
+        <h3>Semaine du @currentWeekStart.ToString("dd MMM yyyy")</h3>
+        <a asp-action="Index" asp-route-weekStart="@currentWeekStart.AddDays(7)" class="btn btn-secondary">Semaine Suivante →</a>
+    </div>
+
+    <!-- Calendrier -->
+    <div class="row">
+        @foreach (var day in daysOfWeek)
+        {
+            <div class="col-md-1 day-column p-0">
+                <div class="day-title">
+                    @day.ToString("dddd dd MMM")
+                </div>
+                <div>
+                    @{
+                        var dayCreneaux = Model.Where(c => c.Horaire.HasValue && c.Horaire.Value.Date == day.Date);
+                    }
+                    @foreach (var creneau in dayCreneaux)
+                    {
+                        <div class="creneau">
+                            <strong>@(creneau.Horaire.HasValue ? creneau.Horaire.Value.ToString("HH:mm") : "Non défini")</strong> - @creneau.Lieu
+                            Places restantes : @creneau.PlacesRestantes
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+    </div>
 </div>

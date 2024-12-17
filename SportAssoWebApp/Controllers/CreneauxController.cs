@@ -18,11 +18,22 @@ namespace SportAssoWebApp.Controllers
             _context = context;
         }
 
-        // GET: Creneaux
-        public async Task<IActionResult> Index()
+        // GET: Creneaux (Calendrier avec navigation par semaine)
+        public async Task<IActionResult> Index(DateTime? weekStart)
         {
-            var sportAssoContext = _context.Creneaux.Include(c => c.Section);
-            return View(await sportAssoContext.ToListAsync());
+            // Récupération du lundi de la semaine en cours ou de la semaine spécifiée
+            DateTime startOfWeek = weekStart?.StartOfWeek(DayOfWeek.Monday) ?? DateTime.Now.StartOfWeek(DayOfWeek.Monday);
+
+            var creneaux = await _context.Creneaux
+                .Include(c => c.Section)
+                .Where(c => c.Horaire.HasValue &&
+                            c.Horaire.Value >= startOfWeek &&
+                            c.Horaire.Value < startOfWeek.AddDays(7))
+                .ToListAsync();
+
+            ViewBag.CurrentWeekStart = startOfWeek;
+            return View(creneaux);
+
         }
 
         // GET: Creneaux/Details/5
@@ -52,8 +63,6 @@ namespace SportAssoWebApp.Controllers
         }
 
         // POST: Creneaux/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("CreneauId,SectionId,Lieu,Horaire,PlacesMax,PlacesRestantes,Price,DocumentsRequired")] Creneau creneau)
@@ -86,8 +95,6 @@ namespace SportAssoWebApp.Controllers
         }
 
         // POST: Creneaux/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("CreneauId,SectionId,Lieu,Horaire,PlacesMax,PlacesRestantes,Price,DocumentsRequired")] Creneau creneau)
@@ -158,6 +165,16 @@ namespace SportAssoWebApp.Controllers
         private bool CreneauExists(int id)
         {
             return _context.Creneaux.Any(e => e.CreneauId == id);
+        }
+    }
+
+    // Méthode d'extension pour calculer le début de la semaine
+    public static class DateTimeExtensions
+    {
+        public static DateTime StartOfWeek(this DateTime dt, DayOfWeek startOfWeek)
+        {
+            int diff = (7 + (dt.DayOfWeek - startOfWeek)) % 7;
+            return dt.AddDays(-1 * diff).Date;
         }
     }
 }

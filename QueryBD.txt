@@ -1,36 +1,16 @@
-CREATE DATABASE SportAssoDB;
-GO
-USE SportAssoDB;
+INSERT INTO Sections (SectionName)
+VALUES ('Volleyball'),
+       ('Gymnastic'),
+       ('Natation');
 
-CREATE TABLE Adherents (
-    AdherentId INT IDENTITY PRIMARY KEY,
-    FirstName NVARCHAR(50),
-    LastName NVARCHAR(50),
-    Email NVARCHAR(100) UNIQUE,
-    PasswordHash NVARCHAR(256),
-    IsEncadrant BIT DEFAULT 0
-);
-
-CREATE TABLE Sections (
-    SectionId INT IDENTITY PRIMARY KEY,
-    SectionName NVARCHAR(50)
-);
-
-CREATE TABLE Creneaux (
-    CreneauId INT IDENTITY PRIMARY KEY,
-    SectionId INT FOREIGN KEY REFERENCES Sections(SectionId),
-    Lieu NVARCHAR(100),
-    Horaire DATETIME,
-    PlacesMax INT,
-    PlacesRestantes INT,
-    Price DECIMAL(10,2),
-    DocumentsRequired NVARCHAR(MAX)
-);
-
-CREATE TABLE Inscriptions (
-    InscriptionId INT IDENTITY PRIMARY KEY,
-    AdherentId INT FOREIGN KEY REFERENCES Adherents(AdherentId),
-    CreneauId INT FOREIGN KEY REFERENCES Creneaux(CreneauId),
-    IsPaid BIT,
-    DocumentsSubmitted NVARCHAR(MAX)
-);
+INSERT INTO Creneaux (SectionId, Lieu, Horaire, PlacesMax, PlacesRestantes, Price, DocumentsRequired)
+VALUES (1, 'Hall A', '2024-06-20T18:00:00', 10, 10, 20.00, 'Medical Certificate'),
+       (2, 'Gym 1', '2024-06-21T15:00:00', 20, 20, 15.00, 'Membership Form'),
+       (3, 'Pool 1', '2024-06-22T10:00:00', 12, 12, 25.00, 'ID Photo'),
+       (1, 'Hall A', '2024-06-23T14:00:00', 8, 8, 30.00, 'Medical Certificate'),
+       (2, 'Gym 1', '2024-06-24T17:30:00', 15, 15, 18.00, 'Membership Form'),
+       (3, 'Pool 1', '2024-06-25T09:00:00', 10, 10, 20.00, 'Medical Certificate'),
+       (1, 'Hall B', '2024-06-26T11:30:00', 20, 20, 22.00, 'ID Photo'),
+       (2, 'Gym 1, '2024-06-27T16:00:00', 12, 12, 19.00, 'Medical Certificate'),
+       (3, 'Pool 1', '2024-06-28T13:00:00', 18, 18, 16.00, 'Membership Form'),
+       (1, 'Hall B', '2024-06-29T12:00:00', 25, 25, 28.00, 'ID Photo');
