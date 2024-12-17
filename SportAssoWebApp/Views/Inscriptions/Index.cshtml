@@ -1,0 +1,53 @@
+﻿@model IEnumerable<SportAssoWebApp.Models.Inscription>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.IsPaid)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DocumentsSubmitted)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Adherent)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Creneau)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsPaid)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DocumentsSubmitted)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Adherent.AdherentId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Creneau.CreneauId)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.InscriptionId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.InscriptionId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.InscriptionId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
