@@ -32,7 +32,9 @@
 
 <div class="container mt-4">
     <h1 class="mb-4">Calendrier des Créneaux</h1>
-
+    <p>
+        <a asp-action="Create" class="btn btn-primary">Ajouter un créneau</a>
+    </p>
     <!-- Navigation des semaines -->
     <div class="navigation d-flex justify-content-between">
         <a asp-action="Index" asp-route-weekStart="@currentWeekStart.AddDays(-7)" class="btn btn-secondary">← Semaine Précédente</a>
@@ -57,6 +59,7 @@
                         <div class="creneau">
                             <strong>@(creneau.Horaire.HasValue ? creneau.Horaire.Value.ToString("HH:mm") : "Non défini")</strong> - @creneau.Lieu
                             Places restantes : @creneau.PlacesRestantes
+                            <input type="submit" value="Create" class="btn btn-primary" />
                         </div>
                     }
                 </div>

@@ -1,0 +1,76 @@
+﻿@model IEnumerable<SportAssoWebApp.Models.Creneau>
+@{
+    ViewData["Title"] = "Calendrier des Créneaux";
+    var currentWeekStart = ViewBag.CurrentWeekStart as DateTime? ?? DateTime.Now.StartOfWeek(DayOfWeek.Monday);
+    var daysOfWeek = Enumerable.Range(0, 7)
+                               .Select(offset => currentWeekStart.AddDays(offset))
+                               .ToList();
+}
+
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+<style>
+    .day-column {
+        border: 1px solid #ddd;
+        min-height: 200px;
+        background-color: #f9f9f9;
+    }
+
+    .day-title {
+        background-color: #343a40;
+        color: white;
+        text-align: center;
+        padding: 10px;
+        font-weight: bold;
+    }
+
+    .creneau {
+        padding: 10px;
+        border-bottom: 1px solid #ccc;
+    }
+
+    .navigation {
+        margin-bottom: 20px;
+    }
+</style>
+
+<div class="container mt-4">
+    <h1 class="mb-4">Calendrier des Créneaux</h1>
+
+    <!-- Navigation des semaines -->
+    <p>
+        <a asp-action="Create" class="btn btn-primary">Ajouter un créneau</a>
+    </p>
+
+    <div class="navigation d-flex justify-content-between">
+        <a asp-action="Calendrier" asp-route-weekStart="@currentWeekStart.AddDays(-7)" class="btn btn-secondary">← Semaine Précédente</a>
+        <h3>Semaine du @currentWeekStart.ToString("dd MMM yyyy")</h3>
+        <a asp-action="Calendrier" asp-route-weekStart="@currentWeekStart.AddDays(7)" class="btn btn-secondary">Semaine Suivante →</a>
+        
+
+    </div>
+
+    <!-- Calendrier -->
+    <div class="row">
+        @foreach (var day in daysOfWeek)
+        {
+            <div class="col-md-1 day-column p-0">
+                <div class="day-title">
+                    @day.ToString("dddd dd MMM")
+                </div>
+                <div>
+                    @{
+                        var dayCreneaux = Model.Where(c => c.Horaire.HasValue && c.Horaire.Value.Date == day.Date);
+                    }
+                    @foreach (var creneau in dayCreneaux)
+                    {
+                        <div class="creneau">
+                            <strong>@(creneau.Horaire.HasValue ? creneau.Horaire.Value.ToString("HH:mm") : "Non défini")</strong> - @creneau.Lieu
+                            Places restantes : @creneau.PlacesRestantes
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+
+    </div>
+</div>
