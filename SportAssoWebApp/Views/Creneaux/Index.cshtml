@@ -50,15 +50,15 @@
                 </div>
                 <div>
                     @{
-                        var dayCreneaux = Model.Where(c => c.Horaire.HasValue && c.Horaire.Value.Date == day.Date);
+                        var dayCreneaux = Model.Where(c => c.Date.Date == day.Date);
                     }
                     @foreach (var creneau in dayCreneaux)
-                    {
-                        <div class="creneau">
-                            <strong>@(creneau.Horaire.HasValue ? creneau.Horaire.Value.ToString("HH:mm") : "Non défini")</strong> - @creneau.Lieu
-                            Places restantes : @creneau.PlacesRestantes
-                        </div>
-                    }
+{
+    <div class="creneau">
+        <strong>@($"{creneau.Hour:hh\\:mm}")</strong> - @creneau.Lieu
+        Places restantes : @creneau.PlacesRestantes
+    </div>
+}
                 </div>
             </div>
         }

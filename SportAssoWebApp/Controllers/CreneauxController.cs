@@ -26,9 +26,9 @@ namespace SportAssoWebApp.Controllers
 
             var creneaux = await _context.Creneaux
                 .Include(c => c.Section)
-                .Where(c => c.Horaire.HasValue &&
-                            c.Horaire.Value >= startOfWeek &&
-                            c.Horaire.Value < startOfWeek.AddDays(7))
+                .Where(c => c.Date >= startOfWeek &&
+                            c.Date < startOfWeek.AddDays(7))
+
                 .ToListAsync();
 
             ViewBag.CurrentWeekStart = startOfWeek;
@@ -65,7 +65,7 @@ namespace SportAssoWebApp.Controllers
         // POST: Creneaux/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CreneauId,SectionId,Lieu,Horaire,PlacesMax,PlacesRestantes,Price,DocumentsRequired")] Creneau creneau)
+        public async Task<IActionResult> Create([Bind("CreneauId,SectionId,Lieu,Date,Hour,PlacesMax,PlacesRestantes,Price,DocumentsRequired")] Creneau creneau)
         {
             if (ModelState.IsValid)
             {

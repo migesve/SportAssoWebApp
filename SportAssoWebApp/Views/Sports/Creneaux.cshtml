@@ -1,0 +1,24 @@
+﻿@model IEnumerable<SportAssoWebApp.Models.Creneau>
+
+<h2>Available Time Slots</h2>
+<table>
+    <tr>
+        <th>Lieu</th>
+        <th>Date</th>
+        <th>Hour</th>
+        <th>Places Left</th>
+        <th>Actions</th>
+    </tr>
+    @foreach (var creneau in Model)
+    {
+        <tr>
+            <td>@creneau.Lieu</td>
+            <td>@creneau.Date.ToShortDateString()</td>
+            <td>@creneau.Hour</td>
+            <td>@creneau.PlacesRestantes</td>
+            <td>
+                <a asp-action="Register" asp-route-id="@creneau.CreneauId">Register</a>
+            </td>
+        </tr>
+    }
+</table>

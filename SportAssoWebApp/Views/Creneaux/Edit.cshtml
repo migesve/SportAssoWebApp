@@ -22,10 +22,16 @@
                 <span asp-validation-for="Lieu" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Horaire" class="control-label"></label>
-                <input asp-for="Horaire" class="form-control" />
-                <span asp-validation-for="Horaire" class="text-danger"></span>
+                <label asp-for="Date" class="control-label">Date</label>
+                <input asp-for="Date" class="form-control" type="date" />
+                <span asp-validation-for="Date" class="text-danger"></span>
             </div>
+            <div class="form-group">
+                <label asp-for="Hour" class="control-label">Hour</label>
+                <input asp-for="Hour" class="form-control" type="time" />
+                <span asp-validation-for="Hour" class="text-danger"></span>
+            </div>
+
             <div class="form-group">
                 <label asp-for="PlacesMax" class="control-label"></label>
                 <input asp-for="PlacesMax" class="form-control" />

@@ -1,0 +1,27 @@
+﻿@model IEnumerable<SportAssoWebApp.Models.Adherent>
+
+<h2>Adherents Awaiting Validation</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var adherent in Model)
+        {
+            <tr>
+                <td>@($"{adherent.FirstName} {adherent.LastName}")</td>
+                <td>@adherent.Email</td>
+                <td>
+                    <form asp-action="Approve" asp-route-id="@adherent.AdherentId" method="post">
+                        <button type="submit" class="btn btn-success">Approve</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

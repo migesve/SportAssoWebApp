@@ -17,5 +17,7 @@ public partial class Adherent
 
     public bool? IsEncadrant { get; set; }
 
+    public bool IsValidated { get; set; } = false; // Default: not validated
+
     public virtual ICollection<Inscription> Inscriptions { get; set; } = new List<Inscription>();
 }

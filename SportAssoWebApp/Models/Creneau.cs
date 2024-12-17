@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace SportAssoWebApp.Models;
 
@@ -11,7 +12,14 @@ public partial class Creneau
 
     public string? Lieu { get; set; }
 
-    public DateTime? Horaire { get; set; }
+    [Required]
+    [DataType(DataType.Date)]
+    public DateTime Date { get; set; }
+
+    [Required]
+    [DataType(DataType.Time)]
+    public TimeSpan Hour { get; set; }
+
 
     public int? PlacesMax { get; set; }
 
@@ -24,6 +32,8 @@ public partial class Creneau
     public virtual ICollection<Inscription> Inscriptions { get; set; } = new List<Inscription>();
 
     public virtual Section? Section { get; set; }
+
+    //public required Section Section { get; set; } // Navigation Property
 }
 
 public static class DateTimeExtensions

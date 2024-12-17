@@ -1,0 +1,11 @@
+﻿@model IEnumerable<SportAssoWebApp.Models.Section>
+
+<h2>Available Sports</h2>
+<ul>
+    @foreach (var sport in Model)
+    {
+        <li>
+            <a asp-action="Creneaux" asp-route-id="@sport.SectionId">@sport.SectionName</a>
+        </li>
+    }
+</ul>
