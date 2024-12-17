@@ -4,68 +4,73 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Creneaux</h1>
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Lieu)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Horaire)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PlacesMax)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PlacesRestantes)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Price)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DocumentsRequired)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Section)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Lieu)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Horaire)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PlacesMax)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PlacesRestantes)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DocumentsRequired)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Section.SectionId)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.CreneauId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.CreneauId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.CreneauId">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<div class="container mt-4">
+    <h1 class="mb-4">Créneaux</h1>
+
+    <p>
+        <a asp-action="Create" class="btn btn-primary">Ajouter un créneau</a>
+    </p>
+    <table class="table table-striped table-hover table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Lieu)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Horaire)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PlacesMax)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PlacesRestantes)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Price)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DocumentsRequired)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Section)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Lieu)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Horaire)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PlacesMax)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PlacesRestantes)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Price)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DocumentsRequired)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Section.SectionId)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.CreneauId" class="btn btn-secondary btn-sm">Edit</a>
+                        <a asp-action="Details" asp-route-id="@item.CreneauId" class="btn btn-info btn-sm">Details</a>
+                        <a asp-action="Delete" asp-route-id="@item.CreneauId" class="btn btn-danger btn-sm">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
