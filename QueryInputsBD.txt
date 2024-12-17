@@ -1,0 +1,6 @@
+INSERT INTO Sections (SectionName) VALUES ('Volleyball'), ('Basketball'), ('Tennis');
+
+INSERT INTO Creneaux (SectionId, Lieu, Horaire, PlacesMax, PlacesRestantes, Price, DocumentsRequired)
+VALUES (1, 'Court 1', '2024-06-20 18:00', 10, 10, 20.00, 'Medical Certificate'),
+       (2, 'Hall A', '2024-06-21 15:00', 20, 20, 15.00, 'Membership Form'),
+       (3, 'Field 2', '2024-06-22 10:00', 12, 12, 25.00, 'ID Photo');

@@ -1,0 +1,36 @@
+CREATE DATABASE SportAssoDB;
+GO
+USE SportAssoDB;
+
+CREATE TABLE Adherents (
+    AdherentId INT IDENTITY PRIMARY KEY,
+    FirstName NVARCHAR(50),
+    LastName NVARCHAR(50),
+    Email NVARCHAR(100) UNIQUE,
+    PasswordHash NVARCHAR(256),
+    IsEncadrant BIT DEFAULT 0
+);
+
+CREATE TABLE Sections (
+    SectionId INT IDENTITY PRIMARY KEY,
+    SectionName NVARCHAR(50)
+);
+
+CREATE TABLE Creneaux (
+    CreneauId INT IDENTITY PRIMARY KEY,
+    SectionId INT FOREIGN KEY REFERENCES Sections(SectionId),
+    Lieu NVARCHAR(100),
+    Horaire DATETIME,
+    PlacesMax INT,
+    PlacesRestantes INT,
+    Price DECIMAL(10,2),
+    DocumentsRequired NVARCHAR(MAX)
+);
+
+CREATE TABLE Inscriptions (
+    InscriptionId INT IDENTITY PRIMARY KEY,
+    AdherentId INT FOREIGN KEY REFERENCES Adherents(AdherentId),
+    CreneauId INT FOREIGN KEY REFERENCES Creneaux(CreneauId),
+    IsPaid BIT,
+    DocumentsSubmitted NVARCHAR(MAX)
+);
