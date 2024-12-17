@@ -3,6 +3,60 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Bienvenue sur sport Asso</h1>
+    <p>Voici les sports proposées :</p>
+    <div class="container">
+        <!-- Première image avec titre et description -->
+        <div class="card">
+            <div class="image-container">
+                <img src="~/img/voleyball.png" alt="Image 1">
+            </div>
+            <div class="title">Volleyball</div>
+            <div class="description">Proposé par Fontaine Volley, 8 terrains sont à votre disposition pour des parties endiablées. Encadré par Miguel Angel Espinal.</div>
+        </div>
+
+        <!-- Deuxième image avec titre et description -->
+        <div class="card">
+            <div class="image-container">
+                <img src="~/img/swim.png" alt="Image 2">
+            </div>
+            <div class="title">Natation</div>
+            <div class="description">La piscine de l'université grenoble Alpes vous propose sa piscine de taille olympique (50 mètres) pour tout types de niveaux. Encadré et surveillé par Théo Dorget.</div>
+        </div>
+
+        <!-- Troisième image avec titre et description -->
+        <div class="card">
+            <div class="image-container">
+                <img src="~/img/gymnastic.png" alt="Image 3">
+            </div>
+            <div class="title">Gymnastique</div>
+            <div class="description">Complexe de 500 m² situé à Sassenage destiné à entrainer et préparer les futurs athlètes de demain. Coaché par Jules Sage. </div>
+        </div>
+    </div>
 </div>
+<style>
+    body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+h1 {
+    color: #333;
+}
+
+.card {
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin: 10px;
+    border-radius: 8px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+img{
+    height: 100px;
+    width : 100px;
+}
+
+</style>
