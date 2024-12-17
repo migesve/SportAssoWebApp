@@ -28,10 +28,10 @@ app.MapControllerRoute(
     pattern: "{controller=Adherents}/{action=Index}/{id?}");
 
 app.MapControllerRoute(
-    name: "/Creneau",
+    name: "/Creneaux",
     pattern: "{controller=Creneaux}/{action=Index}/{id?}");
 app.MapControllerRoute(
-    name: "/Inscription",
+    name: "/Inscriptions",
     pattern: "{controller=Inscriptions}/{action=Index}/{id?}");
 
 
