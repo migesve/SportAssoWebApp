@@ -1,0 +1,27 @@
+﻿@model SportAssoWebApp.Models.Creneau
+
+@{
+    ViewData["Title"] = "Add Creneau";
+}
+
+<h2>Add Creneau</h2>
+
+<form asp-action="AddCreneau" method="post">
+    <div class="form-group">
+        <label asp-for="Date">Date</label>
+        <input asp-for="Date" class="form-control" type="date" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Hour">Hour</label>
+        <input asp-for="Hour" class="form-control" type="time" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Lieu">Lieu</label>
+        <input asp-for="Lieu" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="PlacesMax">Places Max</label>
+        <input asp-for="PlacesMax" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-primary">Save</button>
+</form>

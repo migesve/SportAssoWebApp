@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SportAssoWebApp.Models;
 
 namespace SportAssoWebApp.Controllers
 {
+    [Authorize(Roles = "Admin")] // Protect the controller for Admin role only
     public class AdminController : Controller
     {
         private readonly SportAssoContext _context;
@@ -25,6 +27,8 @@ namespace SportAssoWebApp.Controllers
         }
 
         // POST: Admin/Approve/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Approve(int id)
         {
             var adherent = await _context.Adherents.FindAsync(id);
@@ -38,6 +42,26 @@ namespace SportAssoWebApp.Controllers
             await _context.SaveChangesAsync();
 
             return RedirectToAction(nameof(ValidateAdherents));
+        }
+
+        // GET: Admin/AddCreneau
+        public IActionResult AddCreneau()
+        {
+            return View();
+        }
+
+        // POST: Admin/AddCreneau
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddCreneau(Creneau creneau)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Creneaux.Add(creneau);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Index", "Creneaux");
+            }
+            return View(creneau);
         }
     }
 }
