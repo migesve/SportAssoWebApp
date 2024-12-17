@@ -6,7 +6,7 @@ namespace SportAssoWebApp.Models;
 public partial class Adherent
 {
     public int AdherentId { get; set; }
-
+    
     public string? FirstName { get; set; }
 
     public string? LastName { get; set; }

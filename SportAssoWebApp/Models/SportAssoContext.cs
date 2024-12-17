@@ -15,8 +15,11 @@ namespace SportAssoWebApp.Models
         public SportAssoContext()
         {
         }
-        public DbSet<SportAssoWebApp.Models.Creneau> Creneau { get; set; } = default!;
-        public DbSet<SportAssoWebApp.Models.Adherent> Adherent { get; set; } = default!;
-        public DbSet<SportAssoWebApp.Models.Inscription> Inscription { get; set; } = default!;
+        public DbSet<SportAssoWebApp.Models.Creneau> Creneaux { get; set; } = default!;
+        public DbSet<SportAssoWebApp.Models.Adherent> Adherents { get; set; } = default!;
+        public DbSet<SportAssoWebApp.Models.Inscription> Inscriptions { get; set; } = default!;
+
+        public DbSet<SportAssoWebApp.Models.Section> Sections { get; set; } = default!;
+
     }
 }

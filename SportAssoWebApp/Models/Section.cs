@@ -9,5 +9,5 @@ public partial class Section
 
     public string? SectionName { get; set; }
 
-    public virtual ICollection<Creneau> Creneauxes { get; set; } = new List<Creneau>();
+    public virtual ICollection<Creneau> Creneaux { get; set; } = new List<Creneau>();
 }

@@ -21,7 +21,7 @@ namespace SportAssoWebApp.Controllers
         // GET: Adherents
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Adherent.ToListAsync());
+            return View(await _context.Adherents.ToListAsync());
         }
 
         // GET: Adherents/Details/5
@@ -32,7 +32,7 @@ namespace SportAssoWebApp.Controllers
                 return NotFound();
             }
 
-            var adherent = await _context.Adherent
+            var adherent = await _context.Adherents
                 .FirstOrDefaultAsync(m => m.AdherentId == id);
             if (adherent == null)
             {
@@ -72,7 +72,7 @@ namespace SportAssoWebApp.Controllers
                 return NotFound();
             }
 
-            var adherent = await _context.Adherent.FindAsync(id);
+            var adherent = await _context.Adherents.FindAsync(id);
             if (adherent == null)
             {
                 return NotFound();
@@ -123,7 +123,7 @@ namespace SportAssoWebApp.Controllers
                 return NotFound();
             }
 
-            var adherent = await _context.Adherent
+            var adherent = await _context.Adherents
                 .FirstOrDefaultAsync(m => m.AdherentId == id);
             if (adherent == null)
             {
@@ -138,10 +138,10 @@ namespace SportAssoWebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var adherent = await _context.Adherent.FindAsync(id);
+            var adherent = await _context.Adherents.FindAsync(id);
             if (adherent != null)
             {
-                _context.Adherent.Remove(adherent);
+                _context.Adherents.Remove(adherent);
             }
 
             await _context.SaveChangesAsync();
@@ -150,7 +150,7 @@ namespace SportAssoWebApp.Controllers
 
         private bool AdherentExists(int id)
         {
-            return _context.Adherent.Any(e => e.AdherentId == id);
+            return _context.Adherents.Any(e => e.AdherentId == id);
         }
     }
 }

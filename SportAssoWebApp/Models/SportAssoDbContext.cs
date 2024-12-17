@@ -25,7 +25,7 @@ public partial class SportAssoDbContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=DESKTOP-U2I2FJI;Database=SportAssoDB;Integrated Security=True;TrustServerCertificate=True;Trusted_Connection=True;");
+        => optionsBuilder.UseSqlServer("Server=DESKTOP-SIDE7HB;Database=MSSQLSERVER01;Integrated Security=True;TrustServerCertificate=True;Trusted_Connection=True;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -52,7 +52,7 @@ public partial class SportAssoDbContext : DbContext
             entity.Property(e => e.Lieu).HasMaxLength(100);
             entity.Property(e => e.Price).HasColumnType("decimal(10, 2)");
 
-            entity.HasOne(d => d.Section).WithMany(p => p.Creneauxes)
+            entity.HasOne(d => d.Section).WithMany(p => p.Creneaux)
                 .HasForeignKey(d => d.SectionId)
                 .HasConstraintName("FK__Creneaux__Sectio__3D5E1FD2");
         });

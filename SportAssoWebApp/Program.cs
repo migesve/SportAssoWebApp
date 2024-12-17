@@ -24,7 +24,16 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    name: "/Adherents",
+    pattern: "{controller=Adherents}/{action=Index}/{id?}");
+
+app.MapControllerRoute(
+    name: "/Creneau",
+    pattern: "{controller=Creneaux}/{action=Index}/{id?}");
+app.MapControllerRoute(
+    name: "/Inscription",
+    pattern: "{controller=Inscriptions}/{action=Index}/{id?}");
+
+
 
 app.Run();

@@ -21,7 +21,7 @@ namespace SportAssoWebApp.Controllers
         // GET: Creneaux
         public async Task<IActionResult> Index()
         {
-            var sportAssoContext = _context.Creneau.Include(c => c.Section);
+            var sportAssoContext = _context.Creneaux.Include(c => c.Section);
             return View(await sportAssoContext.ToListAsync());
         }
 
@@ -33,7 +33,7 @@ namespace SportAssoWebApp.Controllers
                 return NotFound();
             }
 
-            var creneau = await _context.Creneau
+            var creneau = await _context.Creneaux
                 .Include(c => c.Section)
                 .FirstOrDefaultAsync(m => m.CreneauId == id);
             if (creneau == null)
@@ -76,7 +76,7 @@ namespace SportAssoWebApp.Controllers
                 return NotFound();
             }
 
-            var creneau = await _context.Creneau.FindAsync(id);
+            var creneau = await _context.Creneaux.FindAsync(id);
             if (creneau == null)
             {
                 return NotFound();
@@ -129,7 +129,7 @@ namespace SportAssoWebApp.Controllers
                 return NotFound();
             }
 
-            var creneau = await _context.Creneau
+            var creneau = await _context.Creneaux
                 .Include(c => c.Section)
                 .FirstOrDefaultAsync(m => m.CreneauId == id);
             if (creneau == null)
@@ -145,10 +145,10 @@ namespace SportAssoWebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var creneau = await _context.Creneau.FindAsync(id);
+            var creneau = await _context.Creneaux.FindAsync(id);
             if (creneau != null)
             {
-                _context.Creneau.Remove(creneau);
+                _context.Creneaux.Remove(creneau);
             }
 
             await _context.SaveChangesAsync();
@@ -157,7 +157,7 @@ namespace SportAssoWebApp.Controllers
 
         private bool CreneauExists(int id)
         {
-            return _context.Creneau.Any(e => e.CreneauId == id);
+            return _context.Creneaux.Any(e => e.CreneauId == id);
         }
     }
 }

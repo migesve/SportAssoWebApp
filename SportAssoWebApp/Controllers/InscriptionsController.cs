@@ -21,7 +21,7 @@ namespace SportAssoWebApp.Controllers
         // GET: Inscriptions
         public async Task<IActionResult> Index()
         {
-            var sportAssoContext = _context.Inscription.Include(i => i.Adherent).Include(i => i.Creneau);
+            var sportAssoContext = _context.Inscriptions.Include(i => i.Adherent).Include(i => i.Creneau);
             return View(await sportAssoContext.ToListAsync());
         }
 
@@ -33,7 +33,7 @@ namespace SportAssoWebApp.Controllers
                 return NotFound();
             }
 
-            var inscription = await _context.Inscription
+            var inscription = await _context.Inscriptions
                 .Include(i => i.Adherent)
                 .Include(i => i.Creneau)
                 .FirstOrDefaultAsync(m => m.InscriptionId == id);
@@ -48,8 +48,8 @@ namespace SportAssoWebApp.Controllers
         // GET: Inscriptions/Create
         public IActionResult Create()
         {
-            ViewData["AdherentId"] = new SelectList(_context.Adherent, "AdherentId", "AdherentId");
-            ViewData["CreneauId"] = new SelectList(_context.Creneau, "CreneauId", "CreneauId");
+            ViewData["AdherentId"] = new SelectList(_context.Adherents, "AdherentId", "AdherentId");
+            ViewData["CreneauId"] = new SelectList(_context.Creneaux, "CreneauId", "CreneauId");
             return View();
         }
 
@@ -66,8 +66,8 @@ namespace SportAssoWebApp.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AdherentId"] = new SelectList(_context.Adherent, "AdherentId", "AdherentId", inscription.AdherentId);
-            ViewData["CreneauId"] = new SelectList(_context.Creneau, "CreneauId", "CreneauId", inscription.CreneauId);
+            ViewData["AdherentId"] = new SelectList(_context.Adherents, "AdherentId", "AdherentId", inscription.AdherentId);
+            ViewData["CreneauId"] = new SelectList(_context.Creneaux, "CreneauId", "CreneauId", inscription.CreneauId);
             return View(inscription);
         }
 
@@ -79,13 +79,13 @@ namespace SportAssoWebApp.Controllers
                 return NotFound();
             }
 
-            var inscription = await _context.Inscription.FindAsync(id);
+            var inscription = await _context.Inscriptions.FindAsync(id);
             if (inscription == null)
             {
                 return NotFound();
             }
-            ViewData["AdherentId"] = new SelectList(_context.Adherent, "AdherentId", "AdherentId", inscription.AdherentId);
-            ViewData["CreneauId"] = new SelectList(_context.Creneau, "CreneauId", "CreneauId", inscription.CreneauId);
+            ViewData["AdherentId"] = new SelectList(_context.Adherents, "AdherentId", "AdherentId", inscription.AdherentId);
+            ViewData["CreneauId"] = new SelectList(_context.Creneaux, "CreneauId", "CreneauId", inscription.CreneauId);
             return View(inscription);
         }
 
@@ -121,8 +121,8 @@ namespace SportAssoWebApp.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AdherentId"] = new SelectList(_context.Adherent, "AdherentId", "AdherentId", inscription.AdherentId);
-            ViewData["CreneauId"] = new SelectList(_context.Creneau, "CreneauId", "CreneauId", inscription.CreneauId);
+            ViewData["AdherentId"] = new SelectList(_context.Adherents, "AdherentId", "AdherentId", inscription.AdherentId);
+            ViewData["CreneauId"] = new SelectList(_context.Creneaux, "CreneauId", "CreneauId", inscription.CreneauId);
             return View(inscription);
         }
 
@@ -134,7 +134,7 @@ namespace SportAssoWebApp.Controllers
                 return NotFound();
             }
 
-            var inscription = await _context.Inscription
+            var inscription = await _context.Inscriptions
                 .Include(i => i.Adherent)
                 .Include(i => i.Creneau)
                 .FirstOrDefaultAsync(m => m.InscriptionId == id);
@@ -151,10 +151,10 @@ namespace SportAssoWebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var inscription = await _context.Inscription.FindAsync(id);
+            var inscription = await _context.Inscriptions.FindAsync(id);
             if (inscription != null)
             {
-                _context.Inscription.Remove(inscription);
+                _context.Inscriptions.Remove(inscription);
             }
 
             await _context.SaveChangesAsync();
@@ -163,7 +163,7 @@ namespace SportAssoWebApp.Controllers
 
         private bool InscriptionExists(int id)
         {
-            return _context.Inscription.Any(e => e.InscriptionId == id);
+            return _context.Inscriptions.Any(e => e.InscriptionId == id);
         }
     }
 }
