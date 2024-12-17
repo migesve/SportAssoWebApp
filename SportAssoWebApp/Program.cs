@@ -45,6 +45,9 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.MapRazorPages(); 
+
+
 app.UseAuthentication(); // Add Authentication middleware
 app.UseAuthorization();
 
