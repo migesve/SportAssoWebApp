@@ -17,6 +17,7 @@ public partial class Creneau
 
     public int? PlacesRestantes { get; set; }
 
+    [Column(TypeName = "decimal(10, 2)")]
     public decimal? Price { get; set; }
 
     public string? DocumentsRequired { get; set; }
