@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace SportAssoWebApp.Data
 {
@@ -6,34 +8,52 @@ namespace SportAssoWebApp.Data
     {
         public static async Task SeedAdminUser(IServiceProvider serviceProvider)
         {
-            var userManager = serviceProvider.GetRequiredService<UserManager<IdentityUser>>();
-            var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+            // Créer un scope pour utiliser les services
+            using var scope = serviceProvider.CreateScope();
+            var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
+            var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 
-            // Create Admin Role
-            if (!await roleManager.RoleExistsAsync("Admin"))
+            // 1. Ajouter le rôle "Admin" s'il n'existe pas
+            const string adminRole = "Admin";
+            if (!await roleManager.RoleExistsAsync(adminRole))
             {
-                await roleManager.CreateAsync(new IdentityRole("Admin"));
+                await roleManager.CreateAsync(new IdentityRole(adminRole));
             }
 
-            // Create Admin User
-            var adminEmail = "admin@sportasso.com";
-            var adminUser = await userManager.FindByEmailAsync(adminEmail);
+            // 2. Ajouter un utilisateur administrateur s'il n'existe pas
+            const string adminEmail = "admin@universell.com";
+            const string adminPassword = "Admin@1234"; // Remplacez par un mot de passe sécurisé
 
+            var adminUser = await userManager.FindByEmailAsync(adminEmail);
             if (adminUser == null)
             {
-                var user = new IdentityUser
+                // Créer un nouvel utilisateur administrateur
+                var newAdmin = new IdentityUser
                 {
                     UserName = adminEmail,
                     Email = adminEmail,
-                    EmailConfirmed = true
+                    EmailConfirmed = true // Facultatif : Confirme automatiquement l'email
                 };
 
-                var result = await userManager.CreateAsync(user, "Admin@123"); // Default password
-
+                var result = await userManager.CreateAsync(newAdmin, adminPassword);
                 if (result.Succeeded)
                 {
-                    await userManager.AddToRoleAsync(user, "Admin");
+                    // Assigner le rôle Admin
+                    await userManager.AddToRoleAsync(newAdmin, adminRole);
+                    Console.WriteLine("Utilisateur administrateur ajouté avec succès.");
                 }
+                else
+                {
+                    Console.WriteLine("Erreur lors de l'ajout de l'utilisateur administrateur :");
+                    foreach (var error in result.Errors)
+                    {
+                        Console.WriteLine($"- {error.Description}");
+                    }
+                }
+            }
+            else
+            {
+                Console.WriteLine("L'utilisateur administrateur existe déjà.");
             }
         }
     }

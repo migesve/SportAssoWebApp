@@ -52,8 +52,8 @@ app.UseAuthentication(); // Add Authentication middleware
 app.UseAuthorization();
 
 app.MapControllerRoute(
-    name: "/Adherents",
-    pattern: "{controller=Adherents}/{action=Index}/{id?}");
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.MapControllerRoute(
     name: "/Creneaux",
@@ -62,9 +62,5 @@ app.MapControllerRoute(
 app.MapControllerRoute(
     name: "/Inscriptions",
     pattern: "{controller=Inscriptions}/{action=Index}/{id?}");
-
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
