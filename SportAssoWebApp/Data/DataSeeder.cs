@@ -21,8 +21,8 @@ namespace SportAssoWebApp.Data
             }
 
             // 2. Ajouter un utilisateur administrateur s'il n'existe pas
-            const string adminEmail = "admin@universell.com";
-            const string adminPassword = "Admin@1234"; // Remplacez par un mot de passe sécurisé
+            const string adminEmail = "admin@admin.com";
+            const string adminPassword = "admin123"; // Remplacez par un mot de passe sécurisé
 
             var adminUser = await userManager.FindByEmailAsync(adminEmail);
             if (adminUser == null)

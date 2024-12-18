@@ -27,9 +27,6 @@
                 <th>
                     @Html.DisplayNameFor(model => model.PasswordHash)
                 </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.IsEncadrant)
-                </th>
                 <th></th>
             </tr>
         </thead>
@@ -48,9 +45,6 @@
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.PasswordHash)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.IsEncadrant)
                     </td>
                     <td>
                         <a asp-action="Edit" asp-route-id="@item.AdherentId" class="btn btn-secondary btn-sm">Edit</a>

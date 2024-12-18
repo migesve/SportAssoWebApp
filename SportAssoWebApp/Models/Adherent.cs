@@ -15,7 +15,7 @@ public partial class Adherent
 
     public string? PasswordHash { get; set; }
 
-    public bool? IsEncadrant { get; set; }
+    public bool? IsEncadrant { get; set; } = false;
 
     public bool IsValidated { get; set; } = false; // Default: not validated
 
